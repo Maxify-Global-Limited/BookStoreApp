@@ -1,0 +1,32 @@
+{% extends 'base3.html' %}
+{% block title %}Edit Profile{% endblock %}
+{% block content %}
+
+    
+    
+<div class="container-fluid mt-5">
+
+	<div class="row">
+		<div class="col-md-6 mx-auto">
+		 <div class="card">
+			<div class="card-body">
+				<h4 class="card-title"><strong>Profile Settings</strong></h4>
+                <p>Pls kindly update your profile and click save</p>
+
+				<div class="form-group">
+					<form method="POST">
+						{% csrf_token %}
+						{{ form.as_p }}
+						<button class="btn btn-primary">Update Profile</button>
+				</div>
+				
+			</div>
+		</div>
+	  </div>
+	</div>
+</div>
+
+
+
+
+{% endblock %}
