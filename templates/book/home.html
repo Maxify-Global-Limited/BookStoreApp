@@ -88,6 +88,32 @@
 					</div>
 				</div>
 			</section>
+
+				<div class="container mx-auto">
+				<diV class="row">
+					<div class="col-12 ">
+						{% if is_paginated %}
+					<div class="card">
+						<div class="card-body mx-auto">
+						<nav aria-label="Page navigation example">
+							<ul class="pagination">
+								{% if page_obj.has_previous %}
+								<li class="page-item"><a class="page-link" href="?page={{page_obj.prebious_page_number}}">Previous</a></li>
+								{% endif %}
+								{% for number in page_obj.paginator.page_range %}
+								<li class="page-item"><a class="page-link" href="?page={{number}}">{{number}}</a></li>
+								{% endfor %}
+								{% if page_obj.has_next %}
+								<li class="page-item"><a class="page-link" href="?page={{page_obj.prebious_page_number}}">Next</a></li>
+								{% endif %}
+							</ul>
+						</nav>
+					</div>
+					
+					{% endif %}
+					</div>
+				</div>
+		</diV>
 			<!--************************************
 					Best Selling End
 			*************************************-->
