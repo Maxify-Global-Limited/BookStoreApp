@@ -1,19 +1,28 @@
 from pathlib import Path
-
-
 import os
+
+import environ # new
+env = environ.Env(
+
+    # set casting, default value
+    DEBUG=(bool, False)
+) 
+env.read_env() # new
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
+# Take environment variables from .env file
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-l=q8k0w4j8v*py9e=ixb-yvpw62+qum-f5@+sz*a5*n*bdfm-&'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1",]
 
@@ -34,6 +43,7 @@ INSTALLED_APPS = [
     "crispy_bootstrap5", # new
     'allauth',
     'allauth.account',
+    'jet_django',
     
     # local
     'accounts',
@@ -83,13 +93,15 @@ DATABASES = {
     }
 }
 
+
+
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'verceldb',
-#         'USER': 'default',
-#         'PASSWORD': '',
-#         'HOST': '',
+#         'NAME': env('NAME'),
+#         'USER': env('USER'),
+#         'PASSWORD': env('PASSWORD'),
+#         'HOST': env('HOST'),
 #         'PORT': '5432',
 #         'OPTIONS': {
 #             'sslmode': 'require',
@@ -176,6 +188,11 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_SIGNUP_REDIRECT_URL = "account_login"
 
-MONNIFY_SECRET_KEY= "VYHPHKM2D55NB3NB7YTC30QPRJB7CY8B"
-MONNIFY_API_KEY = "MK_TEST_FA25GM45T3"
-FLWPUBK_TEST = "FLWPUBK_TEST-b76963e98fd557d91220e17572c474ab-X"
+# MONNIFY_SECRET_KEY= "VYHPHKM2D55NB3NB7YTC30QPRJB7CY8B"
+# MONNIFY_API_KEY = "MK_TEST_FA25GM45T3"
+PAYSTACK_PUB_KEY= env("PAYSTACK_PUB_KEY")
+
+
+# Jet Admin
+JET_PROJECT = 'bookstore_app'
+JET_TOKEN = '9f34db6e-cc05-42cf-98b5-0860b83c547a'

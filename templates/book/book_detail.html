@@ -53,9 +53,9 @@
 														<span class="tg-bookwriter">You save $4.02</span>
 														
 														
-														<a class="tg-btn tg-active tg-btn-lg"onclick="payWithMonnify()" id="monnify-button" href="javascript:void(0);">Pay with Monnify</a>
+														<a class="tg-btn tg-active tg-btn-lg" onclick="payWithPaystack()" id="paystack-button" href="javascript:void(0);">Pay with Paystack</a>
 
-														 <a class="tg-btn tg-active tg-btn-lg" onclick="makePayment()" id="flutterwave-button" href="javascript:void(0);">Pay wit Flutterwave</a>
+														 {% comment %} <a class="tg-btn tg-active tg-btn-lg" onclick="makePayment()" id="flutterwave-button" href="javascript:void(0);">Pay wit Flutterwave</a> {% endcomment %}
 														
 													</div>
 												</div>
@@ -286,100 +286,44 @@
 
     // Get Data from Django detail page
     var grand_total = "{{ book.price }}"
-   
-   
-      
-    // MONNIFY FUNCTION : Handles the payment process
 
-    var paymentDiv = document.getElementById('monnify-button');  // Get the clicked element
-    paymentDiv.addEventListener('submit', payWithMonnify, false); // Append an event listener
-        function payWithMonnify() {                               // Call Monnify Api
-            MonnifySDK.initialize({
-                amount: grand_total,
-                currency: "NGN",
-                reference: new String((new Date()).getTime()),
-                customerFullName: "{{user.username}}",
-                customerEmail: "{{user.email}}",
-                apiKey: "{{MONNIFY_API_KEY}}",
-                contractCode: "0680159477",
-                paymentDescription: "payment for {{book.title}} book",
-                metadata: {
-                    "name": "{{book.title}}",
-                },
-                onLoadStart: () => {
-                    console.log("loading has started");
-                },
-                onLoadComplete: () => {
-                    console.log("SDK is UP");
-                },
+	 // PAYSTACK FUNCTION : Handles the payment process
+	 const paymentForm = document.getElementById('paystack-button');
+	 paymentForm.addEventListener("submit", payWithPaystack, false);
 
-                onComplete: (response) => {
+		function payWithPaystack(e) {
 
-                    //Implement what happens when the transaction is completed.
-                    let transaction_id = response.paymentReference;
-                    let status = response.status
-                    console.log(response); // log response to console
-                    
-                    const element = document.getElementById('monnify-button');
+		let handler = PaystackPop.setup({
+			key: "{{PAYSTACK_PUB_KEY}}", // Replace with your public key
+			email: "{{user.email}}",
+			amount:  grand_total * 100,
+			ref: ''+Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+			// label: "Optional string that replaces customer email"
+			currency: 'NGN',
+			
+			callback: function(response){
+			let message = 'Payment complete! Reference: ' + response.reference;
+			console.log(response)
+
+			const element = document.getElementById('paystack-button');
                     element.innerHTML = '';
                     element.innerHTML = '<h6 class="text-center text-white" ><i class="fa fa-spinner fa-spin"></i> Please wait...</h6>';
                     
-                    // Invoke the Redirect Function
-                    redirect(response.status)
-                    
-                },
-                onClose: function(data) {
-
-                    //Implement what should happen when the modal is closed here
-                    console.log(data);
-                }
-            });
-        }
-
-
-	 // FLTTERWAVE FUNCTION : Handles the payment process
-	var paymentDiv2 = document.getElementById('flutterwave-button');  // Get the clicked element
-    paymentDiv2.addEventListener('submit', makePayment, false)
-		function makePayment() {
-		FlutterwaveCheckout({
-		public_key: "{{FLWPUBK_TEST}}",
-		tx_ref: new String((new Date()).getTime()),
-		amount: grand_total,
-		currency: "NGN",
-		payment_options: "card, banktransfer, ussd",
-		meta: {
-			source: "",
-			consumer_mac: "",
-		},
-		customer: {
-			email: "{{user.email}}",
-			phone_number: "08100000000",
-			name: "{{user.username}}",
-		},
-		customizations: {
-			title: "Flutterwave Developers",
-			description: "Test Payment",
-			logo: "https://checkout.flutterwave.com/assets/img/rave-logo.png",
-		},
-		callback: function (data){
-			console.log("payment callback:", data);
-			
-		},
-		onclose: function() {
-			console.log("Payment cancelled!");
-			alert("Payment cancelled!")
-		}
+			redirect(response.status)
+			},
+			onClose: function(){
+			alert('Transaction Failed and Window closed.');
+			},
 		});
-	}
 
-
-
-
+		handler.openIframe();
+			
+		}
     // Function to Handle Alert and Page Redirect after payment
 
-    function redirect(response_status = "SUCCESS") {
+    function redirect(response_status = "success") {
 
-        if (response_status === "SUCCESS") {
+        if (response_status === "success") {
 
             alert(response_status);
             window.location.href = "https://drive.google.com/file/d/1-ehG-4yk6hfdtqmo2-0DydSJxClYtlJy/view?usp=sharing"; //Downloadpage Upon Successful
@@ -392,7 +336,5 @@
 
 
 </script>
-<script type="text/javascript" src="https://sdk.monnify.com/plugin/monnify.js"></script>
-	
-<script src="https://checkout.flutterwave.com/v3.js" crossorigin="anonymous"></script>
+
 {% endblock content %}

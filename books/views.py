@@ -6,7 +6,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, DetailView
 from .models import Book
 
-from bookstore_project.settings import MONNIFY_SECRET_KEY, MONNIFY_API_KEY , FLWPUBK_TEST
+from bookstore_project.settings import  PAYSTACK_PUB_KEY
 
 
 
@@ -32,9 +32,8 @@ class HomeDetailView(LoginRequiredMixin, DetailView):
            
         context.update({
                 "book_list": queryset,
-                "MONNIFY_SECRET_KEY": MONNIFY_SECRET_KEY,
-                "MONNIFY_API_KEY": MONNIFY_API_KEY,
-                "FLWPUBK_TEST": FLWPUBK_TEST
+                "PAYSTACK_PUB_KEY": PAYSTACK_PUB_KEY,
+               
                 
             })
         return context

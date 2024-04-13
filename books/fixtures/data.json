@@ -1,0 +1,239 @@
+[
+{
+  "model": "books.author",
+  "pk": 1,
+  "fields": {
+    "author": 1,
+    "salutation": "Hello, My name is James and I am a best sellling Author",
+    "pics": "author_headshots/James-S-Inalegwu-LinkedIn.png"
+  }
+},
+{
+  "model": "books.genre",
+  "pk": 1,
+  "fields": {
+    "name": "Art"
+  }
+},
+{
+  "model": "books.genre",
+  "pk": 2,
+  "fields": {
+    "name": "Fiction"
+  }
+},
+{
+  "model": "books.genre",
+  "pk": 3,
+  "fields": {
+    "name": "Business"
+  }
+},
+{
+  "model": "books.genre",
+  "pk": 4,
+  "fields": {
+    "name": "Economy"
+  }
+},
+{
+  "model": "books.genre",
+  "pk": 5,
+  "fields": {
+    "name": "Programming"
+  }
+},
+{
+  "model": "books.genre",
+  "pk": 6,
+  "fields": {
+    "name": "Economy"
+  }
+},
+{
+  "model": "books.book",
+  "pk": 1,
+  "fields": {
+    "title": "Social Wellbeing",
+    "author": 1,
+    "description": "This book talks about how to advance your life socially and be very happy with yoourself and the people around you.",
+    "price": "15.00",
+    "cover": "covers/img-01.jpg",
+    "publish_date": "2024-04-03T08:38:13.268Z",
+    "created": "2024-04-03T08:38:13.362Z",
+    "genre": [
+      2
+    ]
+  }
+},
+{
+  "model": "books.book",
+  "pk": 2,
+  "fields": {
+    "title": "Econometrics",
+    "author": 1,
+    "description": "This book teaches you about building economic models with stress and technicalities",
+    "price": "21.00",
+    "cover": "covers/img-04.jpg",
+    "publish_date": "2024-04-03T08:41:33.659Z",
+    "created": "2024-04-03T08:41:33.688Z",
+    "genre": [
+      4
+    ]
+  }
+},
+{
+  "model": "books.book",
+  "pk": 3,
+  "fields": {
+    "title": "Python Basic",
+    "author": 1,
+    "description": "Learn python programming the easy way!",
+    "price": "25.00",
+    "cover": "covers/img-07.jpg",
+    "publish_date": "2024-04-03T08:42:59.314Z",
+    "created": "2024-04-03T08:42:59.342Z",
+    "genre": [
+      5
+    ]
+  }
+},
+{
+  "model": "books.book",
+  "pk": 4,
+  "fields": {
+    "title": "Django Explained",
+    "author": 1,
+    "description": "Django: The web framework for perfectionist with deadline!!",
+    "price": "15.00",
+    "cover": "covers/img-11.jpg",
+    "publish_date": "2024-04-03T08:44:47.904Z",
+    "created": "2024-04-03T08:44:47.934Z",
+    "genre": [
+      5
+    ]
+  }
+},
+{
+  "model": "books.book",
+  "pk": 5,
+  "fields": {
+    "title": "Think and Grow Rich",
+    "author": 1,
+    "description": "A book on how to create wealth from the ground up.",
+    "price": "12.00",
+    "cover": "covers/img-09.jpg",
+    "publish_date": "2024-04-03T08:46:16.191Z",
+    "created": "2024-04-03T08:46:16.209Z",
+    "genre": [
+      3,
+      4
+    ]
+  }
+},
+{
+  "model": "books.book",
+  "pk": 6,
+  "fields": {
+    "title": "A Boy Called Hero",
+    "author": 1,
+    "description": "A story about a young boy with great and unique abilities",
+    "price": "9.00",
+    "cover": "covers/img-02.jpg",
+    "publish_date": "2024-04-03T08:48:44.051Z",
+    "created": "2024-04-03T08:48:44.081Z",
+    "genre": [
+      1,
+      2
+    ]
+  }
+},
+{
+  "model": "books.review",
+  "pk": 1,
+  "fields": {
+    "book": 1,
+    "author": 1,
+    "content": "A Great Book!",
+    "rating": 4,
+    "created": "2024-04-03T08:38:13.414Z"
+  }
+},
+{
+  "model": "books.review",
+  "pk": 2,
+  "fields": {
+    "book": 1,
+    "author": 1,
+    "content": "A Very Goood Book!!",
+    "rating": 3,
+    "created": "2024-04-03T08:38:13.416Z"
+  }
+},
+{
+  "model": "books.review",
+  "pk": 3,
+  "fields": {
+    "book": 2,
+    "author": 1,
+    "content": "Nice book",
+    "rating": 3,
+    "created": "2024-04-03T08:41:33.695Z"
+  }
+},
+{
+  "model": "books.review",
+  "pk": 4,
+  "fields": {
+    "book": 2,
+    "author": 1,
+    "content": "A Great Read, I learnt a lot",
+    "rating": 4,
+    "created": "2024-04-03T08:41:33.696Z"
+  }
+},
+{
+  "model": "books.review",
+  "pk": 5,
+  "fields": {
+    "book": 3,
+    "author": 1,
+    "content": "Simple and Clearly explained",
+    "rating": 5,
+    "created": "2024-04-03T08:42:59.349Z"
+  }
+},
+{
+  "model": "books.review",
+  "pk": 6,
+  "fields": {
+    "book": 4,
+    "author": 1,
+    "content": "A goog introduction to django development!",
+    "rating": 3,
+    "created": "2024-04-03T08:44:47.943Z"
+  }
+},
+{
+  "model": "books.review",
+  "pk": 7,
+  "fields": {
+    "book": 5,
+    "author": 1,
+    "content": "Awesoome Book!!",
+    "rating": 5,
+    "created": "2024-04-03T08:46:16.219Z"
+  }
+},
+{
+  "model": "books.review",
+  "pk": 8,
+  "fields": {
+    "book": 6,
+    "author": 1,
+    "content": "This book will change your perspective about lifa and challenges",
+    "rating": 3,
+    "created": "2024-04-03T08:48:44.087Z"
+  }
+}
+]
