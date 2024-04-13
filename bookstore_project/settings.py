@@ -1,5 +1,6 @@
 from pathlib import Path
 import os
+import dj_database_url
 
 import environ # new
 env = environ.Env(
@@ -43,7 +44,7 @@ INSTALLED_APPS = [
     "crispy_bootstrap5", # new
     'allauth',
     'allauth.account',
-    'jet_django',
+    # 'jet_django',
     
     # local
     'accounts',
@@ -52,6 +53,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+     'whitenoise.middleware.WhiteNoiseMiddleware', #new
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -94,14 +96,13 @@ DATABASES = {
 }
 
 
-
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': env('NAME'),
-#         'USER': env('USER'),
-#         'PASSWORD': env('PASSWORD'),
-#         'HOST': env('HOST'),
+#         'NAME': "verceldb",
+#         'USER': "default",
+#         'PASSWORD': "kJN5W8rezxAq",
+#         'HOST':"ep-shrill-smoke-a4db2agn.us-east-1.aws.neon.tech",
 #         'PORT': '5432',
 #         'OPTIONS': {
 #             'sslmode': 'require',
@@ -109,6 +110,15 @@ DATABASES = {
 #     }
 # }
 
+# Replace the SQLite DATABASES configuration with PostgreSQL:
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         # Replace this value with your local database's connection string.
+#         default='postgres://jamezslim90:WQtTNe2OUpEuVnEpN5rgjL4DbZrmAPL3@dpg-cod1vs0l6cac73bc32ig-a/bookstoredb_u471',
+#         conn_max_age=600,
+#         conn_health_checks=True,
+#     )
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -146,8 +156,9 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / "static"] 
-# STATIC_ROOT = BASE_DIR / "staticfiles"
-# STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage" #
+STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
+STATIC_ROOT = BASE_DIR / "staticfiles"
+WHITENOISE_MANIFEST_STRICT = False
 
 
 MEDIA_URL = "/media/"  # new
@@ -194,5 +205,5 @@ PAYSTACK_PUB_KEY= env("PAYSTACK_PUB_KEY")
 
 
 # Jet Admin
-JET_PROJECT = 'bookstore_app'
-JET_TOKEN = '9f34db6e-cc05-42cf-98b5-0860b83c547a'
+# JET_PROJECT = 'bookstore_app'
+# JET_TOKEN = '9f34db6e-cc05-42cf-98b5-0860b83c547a'
